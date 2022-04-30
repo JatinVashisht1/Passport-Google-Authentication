@@ -6,11 +6,11 @@ const strategy = require('./config/passport').strategy
 const session = require('express-session')
 const port = 3000
 
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({ extended: false }))
 
 app.use(session({
     secret: process.env.CLIENT_SECRET,
-    resave:false,
+    resave: false,
     saveUninitialized: true
 }))
 
@@ -20,46 +20,39 @@ app.use(passport.session())
 
 passport.use(strategy)
 
-passport.serializeUser((user, done)=>{
+passport.serializeUser((user, done) => {
     done(null, user)
 })
 
-passport.deserializeUser((user, done)=>{
+passport.deserializeUser((user, done) => {
     done(null, user)
 })
 
 
-showLogs = (req, res, next)=>{
+showLogs = (req, res, next) => {
     console.log("\n==============================")
     console.log(`------------>  ${count++}`)
-    
+
     console.log(`\n req.session.passport -------> `)
     console.log(req.session.passport)
-    
-    console.log(`\n req.user -------> `) 
-    console.log(req.user) 
-    
+
+    console.log(`\n req.user -------> `)
+    console.log(req.user)
+
     console.log("\n Session and Cookie")
-    console.log(`req.session.id -------> ${req.session.id}`) 
-    console.log(`req.session.cookie -------> `) 
-    console.log(req.session.cookie) 
-    
+    console.log(`req.session.id -------> ${req.session.id}`)
+    console.log(`req.session.cookie -------> `)
+    console.log(req.session.cookie)
+
     console.log("===========================================\n")
-    
+
     next()
 }
 
-// app.get('/auth/google', passport.authenticate('google', {scope:['email', 'profile']}))
+let count = 1
+app.use(showLogs)
+app.use(require('./routes'))
 
-// app.get('/auth/google/callback', passport.authenticate('google', {
-    //     successRedirect: '/users/dashboard',
-    //     failureRedirect: '/users/login'
-    // }))
-    
-    let count = 1
-    app.use(showLogs)
-    app.use(require('./routes'))
-
-app.listen(port, ()=>{
+app.listen(port, () => {
     console.log(`app listening at http://localhost:${port}`)
 })
