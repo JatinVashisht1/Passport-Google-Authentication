@@ -5,7 +5,12 @@ require('dotenv').config()
 const strategy = require('./config/passport').strategy
 const session = require('express-session')
 const port = 3000
+const path = require('path')
 
+app.use(express.static(path.join(__dirname, 'public')));
+app.set('view engine', 'html');
+app.engine('html', require('ejs').renderFile);
+app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 require('./config/database')
@@ -53,9 +58,11 @@ showLogs = (req, res, next) => {
 }
 
 let count = 1
-app.use(showLogs)
+// app.use(showLogs)
 app.use(require('./routes'))
-
+// app.get('/', (req, res, next)=>{
+//     res.render('homepage.ejs')
+// })
 app.listen(port, () => {
     console.log(`app listening at http://localhost:${port}`)
 })

@@ -1,12 +1,10 @@
-const req = require('express/lib/request')
-const res = require('express/lib/response')
-const passport = require('passport')
 const router = require('express').Router()
 const checkAuthenticated = require('../lib/utils').chkAuthenticated
 const protectLoginRoute = require('../lib/utils').prtLoginRoute
+const utils = require('../lib/utils')
 
 router.get('/login', protectLoginRoute, (req, res, next)=>{
-    res.render("login.ejs")
+    res.render("homepage.ejs")
 })
 
 router.get('/dashboard', checkAuthenticated, (req, res, next)=>{
