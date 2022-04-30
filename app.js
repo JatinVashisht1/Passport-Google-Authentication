@@ -8,6 +8,9 @@ const port = 3000
 
 app.use(express.urlencoded({ extended: false }))
 
+require('./config/database')
+require('./models/users')
+
 app.use(session({
     secret: process.env.CLIENT_SECRET,
     resave: false,
