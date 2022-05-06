@@ -65,7 +65,6 @@ router.post('/login', utils.prtLoginRoute ,async (req, res, next)=>{
         console.log('salt is ', salt)
         if(utils.validPassword(req.body.password, hash, salt)){
             res.status(200).json({success: "true", url: "http://localhost:3000/user/dashboard"})
-            
         }
 
     }else{

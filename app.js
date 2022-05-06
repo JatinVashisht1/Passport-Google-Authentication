@@ -58,7 +58,7 @@ showLogs = (req, res, next) => {
 }
 
 let count = 1
-// app.use(showLogs)
+app.use(showLogs)
 app.use(require('./routes'))
 // app.get('/', (req, res, next)=>{
 //     res.render('homepage.ejs')

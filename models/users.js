@@ -1,4 +1,10 @@
 const mongoose = require('mongoose')
+const { stringify } = require('nodemon/lib/utils')
+
+const contentEntity = {
+    title: String,
+    content: String,
+}
 
 const UserSchema = new mongoose.Schema({
     username: {
@@ -9,12 +15,25 @@ const UserSchema = new mongoose.Schema({
     },
     hash: {
         type: String,
-        required: true,
+        required: false,
     },
     salt: {
         type: String,
-        required: true,
-    }
+        required: false,
+    },
+    firstName:{
+        type: String,
+        required: false,
+        trim: true,
+    },
+    lastName:{
+        type: String,
+        required: false,
+        trim: true,
+    },
+    blogs: [{
+        type: contentEntity
+    }]
 })
 
 mongoose.model('User', UserSchema)
